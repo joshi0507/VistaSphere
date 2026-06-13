@@ -53,12 +53,13 @@ export async function uploadGLBToGridFS(params: {
 
 export async function getGLBStreamFromGridFS(params: {
   slug: string;
+  gridfsFileId?: string;
 }): Promise<{
   gridfsFileId: string;
   contentType: string;
   stream: NodeJS.ReadableStream;
 }> {
-  const { slug } = params;
+  const { slug, gridfsFileId: inputGridfsFileId } = params;
 
   await connectToDatabase();
 
@@ -69,9 +70,23 @@ export async function getGLBStreamFromGridFS(params: {
 
   // bucketName glbs => files collection is glbs.files
   const filesCollection = db.collection('glbs.files');
-  const fileDoc = await filesCollection.findOne({
-    $or: [{ 'metadata.slug': slug }, { filename: `${slug}.glb` }],
-  });
+  
+  let fileDoc;
+  if (inputGridfsFileId) {
+    try {
+      fileDoc = await filesCollection.findOne({
+        _id: new mongodb.ObjectId(inputGridfsFileId),
+      });
+    } catch (e) {
+      // In case of invalid ObjectId or query error, fall back to slug
+    }
+  }
+
+  if (!fileDoc) {
+    fileDoc = await filesCollection.findOne({
+      $or: [{ 'metadata.slug': slug }, { filename: `${slug}.glb` }],
+    });
+  }
 
   if (!fileDoc) {
     throw new Error('GLB not found in GridFS');

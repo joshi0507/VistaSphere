@@ -252,7 +252,7 @@ export default function UploadSection() {
             </p>
             <div className="dropzone-badge">
               <FileType size={12} />
-              <span>.glb supported · up to 500MB</span>
+              <span>.glb supported · under 4.5MB</span>
             </div>
           </div>
         </div>

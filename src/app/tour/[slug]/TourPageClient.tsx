@@ -72,6 +72,16 @@ export default function TourPageClient({ tour }: { tour: TourData }) {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const handleDownloadQR = () => {
+    if (!tour.qrUrl) return;
+    const link = document.createElement('a');
+    link.href = tour.qrUrl;
+    link.download = `${tour.slug}-qr.png`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div
       style={{
@@ -286,9 +296,8 @@ export default function TourPageClient({ tour }: { tour: TourData }) {
               <Copy size={13} />
               {copied ? 'Copied!' : 'Copy Link'}
             </button>
-            <a
-              href={tour.qrUrl}
-              download={`${tour.slug}-qr.png`}
+            <button
+              onClick={handleDownloadQR}
               id="panel-download-qr"
               style={{
                 display: 'flex',
@@ -303,12 +312,12 @@ export default function TourPageClient({ tour }: { tour: TourData }) {
                 fontSize: '0.78rem',
                 fontWeight: 500,
                 cursor: 'pointer',
-                textDecoration: 'none',
+                transition: 'background 200ms',
               }}
             >
               <Download size={13} />
               Get QR
-            </a>
+            </button>
           </div>
 
           <button

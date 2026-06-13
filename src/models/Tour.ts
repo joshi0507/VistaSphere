@@ -16,6 +16,8 @@ export interface ITour extends Document {
     desktop: number;
     tablet: number;
   };
+  gridfsFileId?: string;
+  qrCodeBase64?: string;
 }
 
 const TourSchema = new Schema<ITour>(
@@ -34,6 +36,8 @@ const TourSchema = new Schema<ITour>(
       desktop: { type: Number, default: 0 },
       tablet: { type: Number, default: 0 },
     },
+    gridfsFileId: { type: String },
+    qrCodeBase64: { type: String },
   },
   {
     timestamps: true,

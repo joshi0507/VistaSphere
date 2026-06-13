@@ -227,45 +227,76 @@ export default function HomePage() {
 
       {/* Footer */}
       <footer className="footer" role="contentinfo">
-        <div className="container footer-inner">
-          <a href="/" className="nav-logo" aria-label="VistaSphere home" style={{ fontSize: '0.9rem' }}>
-            <div className="logo-mark" style={{ width: 28, height: 28 }}>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" />
-                <ellipse cx="12" cy="12" rx="4" ry="10" stroke="currentColor" strokeWidth="1.5" />
-                <line x1="2" y1="12" x2="22" y2="12" stroke="currentColor" strokeWidth="1.5" />
-              </svg>
+        <div className="container">
+          <div className="footer-top">
+            <div className="footer-brand">
+              <a href="/" className="nav-logo" aria-label="VistaSphere home">
+                <div className="logo-mark" style={{ width: 36, height: 36 }}>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" />
+                    <ellipse cx="12" cy="12" rx="4" ry="10" stroke="currentColor" strokeWidth="1.5" />
+                    <line x1="2" y1="12" x2="22" y2="12" stroke="currentColor" strokeWidth="1.5" />
+                  </svg>
+                </div>
+                <span style={{ fontSize: '1.2rem' }}>VistaSphere</span>
+              </a>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginTop: '16px', maxWidth: '300px', lineHeight: 1.6 }}>
+                Empowering creators and businesses to share immersive 360° virtual spaces instantly. No barriers, just exploration.
+              </p>
             </div>
-            VistaSphere
-          </a>
-          <div className="footer-content">
-            <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem', margin: '0 0 8px' }}>
-              AI-Powered 360° Virtual Tour & QR Sharing Platform
+            
+            <div className="footer-social">
+              <h4 style={{ color: 'var(--text-primary)', fontSize: '0.9rem', fontWeight: 600, marginBottom: '16px' }}>
+                Connect with the Developer
+              </h4>
+              <div style={{ display: 'flex', gap: '16px' }}>
+                {/* LinkedIn */}
+                <a
+                  href="https://www.linkedin.com/in/tanishq-joshi-9921b3285/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="social-btn"
+                  title="Connect on LinkedIn"
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                    <rect x="2" y="9" width="4" height="12" />
+                    <circle cx="4" cy="4" r="2" />
+                  </svg>
+                </a>
+                {/* Instagram */}
+                <a
+                  href="https://www.instagram.com/tanishq_joshi_05/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="social-btn instagram-btn"
+                  title="Follow on Instagram"
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                  </svg>
+                </a>
+                {/* Email */}
+                <a
+                  href="mailto:tanishqjoshi200507@gmail.com"
+                  className="social-btn"
+                  title="Send an Email"
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect width="20" height="16" x="2" y="4" rx="2" />
+                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+          
+          <div className="footer-bottom">
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>
+              &copy; {new Date().getFullYear()} VistaSphere by Tanishq Joshi. All rights reserved.
             </p>
-            <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}>
-              <a
-                href="mailto:tanishqjoshi200507@gmail.com"
-                style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.4)', textDecoration: 'none' }}
-              >
-                Email
-              </a>
-              <a
-                href="https://www.linkedin.com/in/tanishq-joshi-9921b3285/"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.4)', textDecoration: 'none' }}
-              >
-                LinkedIn
-              </a>
-              <a
-                href="https://www.instagram.com/tanishq_joshi_05/"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.4)', textDecoration: 'none' }}
-              >
-                Instagram
-              </a>
-            </div>
           </div>
         </div>
       </footer>
@@ -667,20 +698,52 @@ export default function HomePage() {
         /* Footer */
         .footer {
           border-top: 1px solid var(--border);
-          padding: 32px 24px;
+          padding: 60px 0 40px;
+          background: rgba(8, 8, 8, 0.4);
         }
-        .footer-inner {
+        .footer-top {
           display: flex;
-          align-items: center;
           justify-content: space-between;
+          align-items: flex-start;
           flex-wrap: wrap;
-          gap: 16px;
+          gap: 40px;
+          margin-bottom: 60px;
         }
-        .footer-content {
+        .footer-brand {
+          flex: 1;
+          min-width: 280px;
+        }
+        .footer-social {
           display: flex;
           flex-direction: column;
-          align-items: flex-start;
-          gap: 4px;
+        }
+        .social-btn {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 44px;
+          height: 44px;
+          background: var(--background-secondary);
+          border: 1px solid var(--border);
+          border-radius: 50%;
+          color: var(--text-secondary);
+          transition: all 300ms ease;
+        }
+        .social-btn:hover {
+          background: var(--accent);
+          color: white;
+          border-color: var(--accent);
+          transform: translateY(-3px);
+          box-shadow: 0 10px 20px -10px var(--accent-glow);
+        }
+        .social-btn.instagram-btn:hover {
+          background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+          border-color: transparent;
+        }
+        .footer-bottom {
+          padding-top: 32px;
+          border-top: 1px solid rgba(255, 255, 255, 0.05);
+          text-align: center;
         }
 
         @media (max-width: 640px) {
@@ -688,7 +751,7 @@ export default function HomePage() {
           .stats-row { gap: 24px; }
           .action-grid { grid-template-columns: 1fr; }
           .success-checks { flex-direction: column; align-items: center; }
-          .footer-inner { flex-direction: column; align-items: flex-start; }
+          .footer-top { gap: 32px; margin-bottom: 40px; }
         }
       `}</style>
     </main>

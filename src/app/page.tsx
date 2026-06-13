@@ -238,9 +238,35 @@ export default function HomePage() {
             </div>
             VistaSphere
           </a>
-          <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem' }}>
-            360° Virtual Tour Platform · No login required
-          </p>
+          <div className="footer-content">
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem', margin: '0 0 8px' }}>
+              AI-Powered 360° Virtual Tour & QR Sharing Platform
+            </p>
+            <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}>
+              <a
+                href="mailto:tanishqjoshi200507@gmail.com"
+                style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.4)', textDecoration: 'none' }}
+              >
+                Email
+              </a>
+              <a
+                href="https://www.linkedin.com/in/tanishq-joshi-9921b3285/"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.4)', textDecoration: 'none' }}
+              >
+                LinkedIn
+              </a>
+              <a
+                href="https://www.instagram.com/tanishq_joshi_05/"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.4)', textDecoration: 'none' }}
+              >
+                Instagram
+              </a>
+            </div>
+          </div>
         </div>
       </footer>
 
@@ -648,7 +674,13 @@ export default function HomePage() {
           align-items: center;
           justify-content: space-between;
           flex-wrap: wrap;
-          gap: 12px;
+          gap: 16px;
+        }
+        .footer-content {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 4px;
         }
 
         @media (max-width: 640px) {
@@ -662,3 +694,5 @@ export default function HomePage() {
     </main>
   );
 }
+
+

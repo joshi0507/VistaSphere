@@ -268,7 +268,6 @@ export default function TourViewer({ fileUrl }: TourViewerProps) {
   const [showHint, setShowHint] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Hide hint after 4 seconds
   useEffect(() => {
     const t = setTimeout(() => setShowHint(false), 4000);
     return () => clearTimeout(t);
@@ -311,27 +310,22 @@ export default function TourViewer({ fileUrl }: TourViewerProps) {
         style={{ display: 'block' }}
         aria-hidden="true"
       >
-        {/* Lighting */}
         <ambientLight intensity={0.6} />
         <directionalLight position={[5, 10, 5]} intensity={0.8} castShadow />
         <hemisphereLight args={['#87ceeb', '#8b7355', 0.4]} />
 
-        {/* Environment for reflections */}
         <Suspense fallback={null}>
           <Environment preset="apartment" />
         </Suspense>
 
-        {/* Room */}
         <Suspense fallback={<LoadingFallback />}>
           <RoomModel url={fileUrl} />
         </Suspense>
 
-        {/* Controller */}
         <FirstPersonController />
 
       </Canvas>
 
-      {/* Controls Hint */}
       {showHint && (
         <div
           style={{
@@ -352,11 +346,10 @@ export default function TourViewer({ fileUrl }: TourViewerProps) {
           }}
           aria-live="polite"
         >
-          🖱 Drag to look · WASD to move · Scroll to zoom
+          Drag to look · WASD to move · Scroll/Pinch to zoom
         </div>
       )}
 
-      {/* Fullscreen Button */}
       <button
         onClick={toggleFullscreen}
         aria-label={isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'}

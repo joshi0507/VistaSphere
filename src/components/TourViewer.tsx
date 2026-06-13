@@ -1,7 +1,6 @@
 'use client';
 
-import { Suspense, useRef, useEffect, useState, useCallback } from 'react';
-import { useMemo } from 'react';
+import { Suspense, useRef, useEffect, useState, useCallback, useMemo } from 'react';
 import { Canvas, useThree, useFrame } from '@react-three/fiber';
 import { useGLTF, Environment, BakeShadows } from '@react-three/drei';
 import * as THREE from 'three';
@@ -20,6 +19,11 @@ function RoomModel({ url }: { url: string }) {
   useEffect(() => {
     if (!clonedScene || initialized.current) return;
     initialized.current = true;
+
+    console.log("[CAMERA_INIT_EFFECT]", {
+      position: camera.position.toArray(),
+      rotation: [camera.rotation.x, camera.rotation.y, camera.rotation.z],
+    });
 
     const box = new THREE.Box3().setFromObject(clonedScene);
     const size = box.getSize(new THREE.Vector3());
@@ -205,16 +209,22 @@ function FirstPersonController() {
   }, [camera, gl]);
 
   useFrame((_, delta) => {
+    console.count("[FRAME]");
     const allowGyro = gyroRef.current.enabled && !userHasInteractedRef.current;
 
-    console.log('[CameraFrame]', {
+    console.log("[CAMERA_DEBUG]", {
+      posX: Number(camera.position.x.toFixed(3)),
+      posY: Number(camera.position.y.toFixed(3)),
+      posZ: Number(camera.position.z.toFixed(3)),
+
+      rotX: Number(camera.rotation.x.toFixed(3)),
+      rotY: Number(camera.rotation.y.toFixed(3)),
+      rotZ: Number(camera.rotation.z.toFixed(3)),
+
       allowGyro,
-      userHasInteracted: userHasInteractedRef.current,
-      gyroEnabled: gyroRef.current.enabled,
-      isDown: pointer.current.isDown,
-      euler: { x: euler.current.x, y: euler.current.y },
-      cameraPos: camera.position.toArray(),
-      cameraQuat: camera.quaternion.toArray(),
+      gyroEnabled: gyroRef.current?.enabled ?? false,
+      userHasInteracted: userHasInteractedRef.current ?? false,
+      isDown: pointer.current?.isDown ?? false,
     });
 
     if (allowGyro) {
@@ -225,6 +235,12 @@ function FirstPersonController() {
     }
 
     camera.quaternion.setFromEuler(euler.current);
+
+    console.log("[CAMERA_ROTATION_UPDATE]", {
+      rotX: camera.rotation.x,
+      rotY: camera.rotation.y,
+      rotZ: camera.rotation.z
+    });
 
     const speed = 3 * delta;
     const dir = new THREE.Vector3();
@@ -239,7 +255,21 @@ function FirstPersonController() {
       dir.applyQuaternion(camera.quaternion);
       dir.y = 0;
       dir.normalize();
+      console.log("[CAMERA_POSITION_SET]", {
+        x: camera.position.x,
+        y: camera.position.y,
+        z: camera.position.z,
+        stack: new Error().stack,
+      });
+
       camera.position.addScaledVector(dir, speed);
+
+      console.log("[CAMERA_POSITION_SET]", {
+        x: camera.position.x,
+        y: camera.position.y,
+        z: camera.position.z,
+        stack: new Error().stack,
+      });
     }
 
     velocity.current.multiplyScalar(0.9);

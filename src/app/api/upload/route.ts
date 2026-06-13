@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import connectToDatabase from '@/lib/mongodb';
 import Tour from '@/models/Tour';
 import { generateUniqueSlug, formatTitle } from '@/lib/slug';
-import { saveGLBFile } from '@/lib/storage';
+import { uploadGLBToGridFS } from '@/lib/gridfs';
 import QRCode from 'qrcode';
 import path from 'path';
 import fs from 'fs/promises';
@@ -38,8 +38,16 @@ export async function POST(request: NextRequest) {
     const arrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
 
-    // Save GLB file
-    const fileUrl = await saveGLBFile(buffer, slug);
+    // Save GLB file into GridFS (no disk writes)
+    const { contentType } = { contentType: 'model/gltf-binary' };
+    const { gridfsFileId } = await uploadGLBToGridFS({
+      buffer,
+      slug,
+      fileName: file.name,
+    });
+
+    // Stream URL from our GridFS-backed endpoint
+    const fileUrl = `/api/tours/file/${slug}`;
 
     // Generate QR code
     const host = request.headers.get('host') || 'localhost:3000';
